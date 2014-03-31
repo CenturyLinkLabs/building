@@ -1,0 +1,16 @@
+[Unit]
+Description=Run web_1
+After=db.1.service
+Requires=db.1.service
+
+[Service]
+Restart=always
+RestartSec=10s
+ExecStartPre=/usr/bin/docker ps -a -q | xargs docker rm
+ExecStart=/usr/bin/docker run -rm -name web_1  --link serf_1:serf_1 --link db_1:db_1 -e "DB_USER=root" -e "DB_PASSWORD=38uf8hhf38h" -p 80 ctlc/wordpress
+ExecStartPost=/usr/bin/docker ps -a -q | xargs docker rm
+ExecStop=/usr/bin/docker kill web_1
+ExecStopPost=/usr/bin/docker ps -a -q | xargs docker rm
+
+[Install]
+WantedBy=local.target

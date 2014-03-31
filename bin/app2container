@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby
+require 'optparse'
+require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib", "app2container"))
+
+APP2CONTAINER_BANNER = "Usage: app2container [options] CONTAINER_NAME"
+
+options = {}
+
+opt_parser = OptionParser.new do |opts|
+  opts.banner = APP2CONTAINER_BANNER
+
+  opts.on("-b", "--buildpack URL", "Add an external Buildpack URL") do |buildpack|
+    options[:buildpack] = buildpack
+  end
+
+  opts.on("-p", "--p PORT", "Run the container after it is built on a certain port") do |port|
+    options[:port] = port
+  end
+
+  opts.on( '-h', '--help', 'Display this screen' ) do
+    puts opts
+    exit
+  end
+
+end
+
+opt_parser.parse!
+
+if ARGV[0].nil?
+	puts opt_parser
+	exit -1
+end
+
+puts App2Container.convert(ARGV[0], options)

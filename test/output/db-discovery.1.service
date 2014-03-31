@@ -1,0 +1,10 @@
+[Unit]
+Description=Announce db_1
+BindsTo=db.1.service
+
+[Service]
+ExecStart=/bin/sh -c "while true; do etcdctl set /services/db/db_1 '{ \"host\": \"%H\", \"port\": 3306, \"version\": \"52c7248a14\" }' --ttl 60;sleep 45;done"
+ExecStop=/usr/bin/etcdctl rm /services/db/db_1
+
+[X-Fleet]
+X-ConditionMachineOf=db.1.service
