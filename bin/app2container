@@ -9,11 +9,15 @@ options = {}
 opt_parser = OptionParser.new do |opts|
   opts.banner = APP2CONTAINER_BANNER
 
-  opts.on("--from", "--from FROM", "Change the default FROM (progrium/buildstep)") do |from|
+  opts.on("-o", "--output FIGCONF", "Output a fig configuration file") do |fig|
+    options[:fig] = fig
+  end
+
+  opts.on("-f", "--from FROM", "Change the default FROM (progrium/buildstep)") do |from|
     options[:from] = from
   end
 
-  opts.on("-f", "--file DOCKERFILE", "External Dockerfile to append to the app2container generated Dockerfile") do |file|
+  opts.on("-d", "--dockerfile DOCKERFILE", "External Dockerfile to append to the app2container generated Dockerfile") do |file|
     options[:file] = file
   end
 

@@ -13,21 +13,28 @@ class App2Container
     @includes = options[:includes]
     @file = options[:file]
     @from = options[:from]
+    @fig = options[:fig]
+    @port = options[:port]
 
     create_dockerfile
     build_container
 
-    if options[:port]
-      run_container(options[:port])
+    if @port
+      run_container(@port)
     else
       explain_container(8080)
     end
+
+    if @fig
+      build_fig
+    end
+
     exit 0
   end
 
   def create_dockerfile
     File.open("Dockerfile" , "w") do |file|
-      file << "FROM #{@from || "progrium/buildstep"}\n"
+      file << "FROM #{@from || "ctlc/buildstep:ubuntu13.10"}\n"
     end
 
     if @buildpack_url
@@ -56,6 +63,20 @@ eof
 ADD . /app
 RUN /build/builder
 CMD /start web
+eof
+    end
+  end
+
+  def build_fig
+    File.open(@fig , "w") do |file|
+      file << <<-eof
+web:
+  image: #{@app_name}:#{@tag}
+  command: /start web
+  environment:
+    PORT: #{@port || 8080}
+  ports:
+   - #{@port || 8080}
 eof
     end
   end

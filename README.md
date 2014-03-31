@@ -32,12 +32,34 @@ Also, you can have app2container run the app for you automatically by adding a -
 
 	$ app2container -p 8080 myuser/container-name 1.2
 
+Fig Integration
+---------------
+
+If you never want to interact with the docker command line, app2container can pair up with fig with the -o flag.
+	
+	$ brew install python # if you are on a Mac
+	$ sudo pip install -U fig
+	$ app2container -o fig.yml myuser/container-name
+	$ fig up -d
+	Creating myapp_web_1...
+	$ fig scale web=3
+	Starting myapp_web_2...
+	Starting myapp_web_3...
+	$ fig ps
+    Name        Command     State        Ports      
+    --------------------------------------------------
+    myapp_web_3   /start web   Up      49192->8080/tcp 
+    myapp_web_2   /start web   Up      49191->8080/tcp 
+    myapp_web_1   /start web   Up      49190->8080/tcp 
+
+This gives you a full Heroku like scaling environment in just a few easy commands.
+
 External Buildpacks
 -------------------
 
 To add an external buildpack, you can specify it with a -b flag. For example, here is how to get HHVM working in a Docker container:
 
-	$ app2container -b https://github.com/hhvm/heroku-buildpack-hhvm.git --from ctlc/buildstep:ubuntu12.04 wordpress
+	$ app2container -b https://github.com/hhvm/heroku-buildpack-hhvm.git -f ctlc/buildstep:ubuntu12.04 wordpress
 
 In this case, the standard hhvm buildpack is compiled against Ubuntu 12.04, whereas the default Linux distro in app2container is based on Ubuntu 12.10.
 
