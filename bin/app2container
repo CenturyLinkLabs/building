@@ -9,8 +9,20 @@ options = {}
 opt_parser = OptionParser.new do |opts|
   opts.banner = APP2CONTAINER_BANNER
 
-  opts.on("-b", "--buildpack URL", "Add an external Buildpack URL") do |buildpack|
-    options[:buildpack] = buildpack
+  opts.on("--from", "--from FROM", "Change the default FROM (progrium/buildstep)") do |from|
+    options[:from] = from
+  end
+
+  opts.on("-f", "--file Dockerfile", "External Dockerfile to append to the app2container generated Dockerfile") do |file|
+    options[:file] = file
+  end
+
+  opts.on("-i", "--include CMD", "Extra commands during the image build") do |includes|
+    options[:includes] = includes
+  end
+
+  opts.on("-b", "--buildpack URL", "Add an external Buildpack URL") do |buildpack_url|
+    options[:buildpack_url] = buildpack_url
   end
 
   opts.on("-p", "--p PORT", "Run the container after it is built on a certain port") do |port|

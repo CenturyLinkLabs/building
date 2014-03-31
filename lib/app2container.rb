@@ -9,8 +9,13 @@ class App2Container
   def initialize(app_name, tag, options={})
     @app_name = app_name
     @tag = tag || "latest"
-    create_dockerfile(options[:buildpack])
-    build_container(tag)
+    @buildpack_url = options[:buildpack_url]
+    @includes = options[:includes]
+    @file = options[:file]
+    @from = options[:from]
+
+    create_dockerfile
+    build_container
 
     if options[:port]
       run_container(options[:port])
@@ -20,28 +25,38 @@ class App2Container
     exit 0
   end
 
-  def create_dockerfile(buildpack_url)
-    if buildpack_url
-      File.open("Dockerfile" , "w") do |file|
+  def create_dockerfile
+    File.open("Dockerfile" , "w") do |file|
+      file << "FROM #{@from || "progrium/buildstep"}\n"
+    end
+
+    if @buildpack_url
+      File.open("Dockerfile" , "a") do |file|
         file << <<-eof
-  FROM progrium/buildstep
-  RUN git clone #{buildpack_url} /build/buildpacks
-  RUN echo #{buildpack_url} >> /build/buildpacks.txt
-  RUN /stack/builder
-  ADD . /app
-  RUN /build/builder
-  CMD /start web
-  eof
+RUN git clone --depth 1 #{@buildpack_url} /build/buildpacks/#{@buildpack_url.split("/").last.sub(".git","")}
+RUN echo #{@buildpack_url} >> /build/buildpacks.txt
+eof
       end
-    elsif !File.exists?("Dockerfile")
-    	File.open("Dockerfile" , "w") do |file|
-        file << <<-eof
-  FROM progrium/buildstep
-  ADD . /app
-  RUN /build/builder
-  CMD /start web
-  eof
+    end
+
+    if @includes
+      File.open("Dockerfile" , "a") do |file|
+        file << "RUN #{@includes}\n"
       end
+    end
+
+    if @file
+      File.open("Dockerfile" , "a") do |file|
+        file << IO.read(@file)
+      end
+    end
+
+    File.open("Dockerfile" , "a") do |file|
+      file << <<-eof
+ADD . /app
+RUN /build/builder
+CMD /start web
+eof
     end
   end
 
@@ -51,12 +66,12 @@ class App2Container
   end
 
   def explain_container(port)
-    run = "docker run -d -p #{port} -e \"PORT=#{port}\" #{@app_name}"
+    run = "docker run -d -p #{port} -e \"PORT=#{port}\" #{@app_name}:#{@tag}"
     puts "\nTo run your app, try something like this:\n\n\t#{run}\n\n"
   end
 
   def run_container(port)
-    run = "\ndocker run -d -p #{port} -e \"PORT=#{port}\" #{@app_name}"
+    run = "\ndocker run -d -p #{port} -e \"PORT=#{port}\" #{@app_name}:#{@tag}"
     puts "#{run}"
     exec run
   end
