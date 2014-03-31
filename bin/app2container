@@ -13,7 +13,7 @@ opt_parser = OptionParser.new do |opts|
     options[:from] = from
   end
 
-  opts.on("-f", "--file Dockerfile", "External Dockerfile to append to the app2container generated Dockerfile") do |file|
+  opts.on("-f", "--file DOCKERFILE", "External Dockerfile to append to the app2container generated Dockerfile") do |file|
     options[:file] = file
   end
 

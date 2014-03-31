@@ -9,7 +9,7 @@ Install
 	$ app2container
 	Usage: app2container [options] CONTAINER_NAME [TAG]
         --from FROM                  Change the default FROM (progrium/buildstep)
-    -f, --file Dockerfile            External Dockerfile to append to the app2container generated Dockerfile
+    -f, --file DOCKERFILE            External Dockerfile to append to the app2container generated Dockerfile
     -i, --include CMD                Extra commands during the image build
     -b, --buildpack URL              Add an external Buildpack URL
     -p, --p PORT                     Run the container after it is built on a certain port
