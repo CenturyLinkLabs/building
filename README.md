@@ -57,3 +57,18 @@ You can use https://github.com/progrium/buildstep as a starting point to build a
 
 	docker build -t ctlc/buildstep:ubuntu12.04 .
 	docker push ctlc/buildstep
+
+Adding Your Own Packages to the Standard Container
+--------------------------------------------------
+
+Sometimes, you don't need to modify the entire container OS, you may just need a few extra libraries:
+
+	app2container -i "apt-get update && apt-get install -qy libapache2-mod-php5 php5-mysql php5-memcache php5-curl" wordpress
+
+Or you can save your modifications to a file for a cleaner app2container command.
+
+	echo "apt-get update && apt-get install -qy libapache2-mod-php5 php5-mysql php5-memcache php5-curl" > Dockerfile.include
+
+	app2container -f Dockerfile.include wordpress
+
+
