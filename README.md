@@ -28,7 +28,7 @@ You can version your apps by adding a verison number.
 	$ app2container myuser/container-name 1.2
 	$ docker run -d -p 8080 -e "PORT=8080" myuser/container-name:1.2
 
-Also, you can have app2container run the app for you automatically.
+Also, you can have app2container run the app for you automatically by adding a -p flag with a port number.
 
 	$ app2container -p 8080 myuser/container-name 1.2
 
