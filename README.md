@@ -5,6 +5,14 @@ Build a Docker container for any app using Heroku Buildpacks
 Usage
 -----
 
+	Usage: app2container [options] CONTAINER_NAME [TAG]
+        --from FROM                  Change the default FROM (progrium/buildstep)
+    -f, --file Dockerfile            External Dockerfile to append to the app2container generated Dockerfile
+    -i, --include CMD                Extra commands during the image build
+    -b, --buildpack URL              Add an external Buildpack URL
+    -p, --p PORT                     Run the container after it is built on a certain port
+    -h, --help                       Display this screen
+
 To convert any app into a Docker container using Heroku Buildpacks, just use this simple gem.
 
 	sudo gem install app2container
