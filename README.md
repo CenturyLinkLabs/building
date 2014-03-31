@@ -35,16 +35,29 @@ Also, you can have app2container run the app for you automatically by adding a -
 External Buildpacks
 -------------------
 
-To add an external buildpack, you can specify it with a -b flag. For example, here is how to get hhvm working in a Docker container:
+To add an external buildpack, you can specify it with a -b flag. For example, here is how to get HHVM working in a Docker container:
 
 	$ app2container -b https://github.com/hhvm/heroku-buildpack-hhvm.git --from ctlc/buildstep:ubuntu12.04 wordpress
 
 In this case, the standard hhvm buildpack is compiled against Ubuntu 12.04, whereas the default Linux distro in app2container is based on Ubuntu 12.10.
 
+Adding Your Own Packages to the Standard Container
+--------------------------------------------------
+
+Sometimes you need a few more packages built-in to your container. Here is how to do that:
+
+	$ app2container -i "apt-get update && apt-get install -qy libapache2-mod-php5 php5-mysql php5-memcache php5-curl" wordpress
+
+Or you can save your modifications to a file for a cleaner app2container command.
+
+	$ echo "apt-get update && apt-get install -qy libapache2-mod-php5 php5-mysql php5-memcache php5-curl" > Dockerfile.include
+	$ app2container -f Dockerfile.include wordpress
+
+
 Creating Your Own Base Containers
 ---------------------------------
 
-You can use https://github.com/progrium/buildstep as a starting point to build any container version you need for your applications. Here is how I built ctlc/buildstep:ubuntu12.04:
+Other times, you will need a more customized OS tuned to your needs. For example, the HHVM example above uses a custom VM. You can use https://github.com/progrium/buildstep as a starting point to build any container version you need for your applications. Here is how I built ctlc/buildstep:ubuntu12.04:
 
 	$ git clone https://github.com/progrium/buildstep.git
 	$ cd buildstep
@@ -59,17 +72,3 @@ You can use https://github.com/progrium/buildstep as a starting point to build a
 
 	$ docker build -t ctlc/buildstep:ubuntu12.04 .
 	$ docker push ctlc/buildstep
-
-Adding Your Own Packages to the Standard Container
---------------------------------------------------
-
-Sometimes, you don't need to modify the entire container OS, you may just need a few extra libraries:
-
-	$ app2container -i "apt-get update && apt-get install -qy libapache2-mod-php5 php5-mysql php5-memcache php5-curl" wordpress
-
-Or you can save your modifications to a file for a cleaner app2container command.
-
-	$ echo "apt-get update && apt-get install -qy libapache2-mod-php5 php5-mysql php5-memcache php5-curl" > Dockerfile.include
-	$ app2container -f Dockerfile.include wordpress
-
-
