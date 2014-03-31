@@ -2,7 +2,7 @@
 require 'optparse'
 require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib", "app2container"))
 
-APP2CONTAINER_BANNER = "Usage: app2container [options] CONTAINER_NAME"
+APP2CONTAINER_BANNER = "Usage: app2container [options] CONTAINER_NAME [TAG]"
 
 options = {}
 
@@ -31,4 +31,4 @@ if ARGV[0].nil?
 	exit -1
 end
 
-puts App2Container.convert(ARGV[0], options)
+puts App2Container.convert(ARGV[0], ARGV[1], options)

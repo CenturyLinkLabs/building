@@ -2,14 +2,15 @@ require 'yaml'
 require 'fileutils'
 
 class App2Container
-  def self.convert(app_name, options={})
-    App2Container.new(app_name, options)
+  def self.convert(app_name, tag, options={})
+    App2Container.new(app_name, tag, options)
   end
 
-  def initialize(app_name, options={})
+  def initialize(app_name, tag, options={})
     @app_name = app_name
+    @tag = tag || "latest"
     create_dockerfile(options[:buildpack])
-    build_container
+    build_container(tag)
 
     if options[:port]
       run_container(options[:port])
@@ -45,7 +46,7 @@ class App2Container
   end
 
   def build_container
-    pid = fork { exec "docker build -t #{@app_name} ." }
+    pid = fork { exec "docker build -t #{@app_name}:#{@tag} ." }
     Process.waitpid(pid)
   end
 

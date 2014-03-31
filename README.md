@@ -1,14 +1,14 @@
-fig2coreos
+app2container
 ==========
-Convert fig.yml to CoreOS formatted systemd configuration files
+Build a Docker container for any app using Heroku Buildpacks
 
 Usage
 -----
 
 To convert any fig.yml into a set of CoreOS configuration files (in /media/system/units) just point the command to your fig.yml file and a directory to put your coreos files in:
 
-	sudo gem install fig2coreos
-	fig2coreos app-name fig.yml coreos-dir
+	sudo gem install app2container
+	app2container myuser/container-name 1.2
 
 By default, fig2coreos will assume you are running this locally with vagrant and VirtualBox installed, so it will create a Vagrantfile which you can run vagrant up in and have a CoreOS running locally with the equivalent of your fig.yml running in it.
 
