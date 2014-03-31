@@ -2,6 +2,11 @@ app2container
 ==========
 Build a Docker container for any app using Heroku Buildpacks
 
+Install
+-------
+
+	sudo gem install app2container
+
 Usage
 -----
 
@@ -15,7 +20,6 @@ Usage
 
 To convert any app into a Docker container using Heroku Buildpacks, just use this simple gem.
 
-	sudo gem install app2container
 	app2container myuser/container-name
 
 	docker run -d -p 8080 -e "PORT=8080" myuser/container-name
