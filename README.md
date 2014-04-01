@@ -62,7 +62,7 @@ To add an external buildpack, you can specify it with a -b flag. For example, he
 
 	$ building -b https://github.com/hhvm/heroku-buildpack-hhvm.git -f ctlc/buildstep:ubuntu12.04 wordpress
 
-In this case, the standard hhvm buildpack is compiled against Ubuntu 12.04, whereas the default Linux distro in building is based on Ubuntu 12.10.
+In this case, the latest buildpack is compiled against Ubuntu 13.10, whereas the default Linux distro used for HHVM is Ubuntu 12.10.
 
 Adding Your Own Packages to the Standard Container
 --------------------------------------------------

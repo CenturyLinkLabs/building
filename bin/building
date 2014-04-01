@@ -1,13 +1,13 @@
 #!/usr/bin/env ruby
 require 'optparse'
-require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib", "building"))
+require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib", "app2container"))
 
-BUILDING_BANNER = "Usage: building [options] CONTAINER_NAME [TAG]"
+APP2CONTAINER_BANNER = "Usage: app2container [options] CONTAINER_NAME [TAG]"
 
 options = {}
 
 opt_parser = OptionParser.new do |opts|
-  opts.banner = BUILDING_BANNER
+  opts.banner = APP2CONTAINER_BANNER
 
   opts.on("-o", "--output FIGCONF", "Output a fig configuration file") do |fig|
     options[:fig] = fig
@@ -17,7 +17,7 @@ opt_parser = OptionParser.new do |opts|
     options[:from] = from
   end
 
-  opts.on("-d", "--dockerfile DOCKERFILE", "External Dockerfile to append to the building generated Dockerfile") do |file|
+  opts.on("-d", "--dockerfile DOCKERFILE", "External Dockerfile to append to the app2container generated Dockerfile") do |file|
     options[:file] = file
   end
 
@@ -47,4 +47,4 @@ if ARGV[0].nil?
 	exit -1
 end
 
-puts Building.convert(ARGV[0], ARGV[1], options)
+puts App2Container.convert(ARGV[0], ARGV[1], options)
