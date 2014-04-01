@@ -1,14 +1,14 @@
 Gem::Specification.new do |s|
-  s.name        = 'app2container'
-  s.version     = '0.1.2'
+  s.name        = 'building'
+  s.version     = '1.0.0'
   s.date        = '2014-03-31'
   s.summary     = "Build a Docker container for any app using Heroku Buildpacks"
   s.description = "Build a Docker container for any app using Heroku Buildpacks"
   s.authors     = ["Lucas Carlson"]
   s.email       = 'lucas@rufy.com'
-  s.files       = ["lib/app2container.rb","bin/app2container"]
+  s.files       = ["lib/building.rb","bin/building"]
   s.requirements = ['bundler']
-  s.homepage    = 'http://github.com/CenturyLinkLabs/app2container'
+  s.homepage    = 'http://github.com/CenturyLinkLabs/building'
   s.license     = 'MIT'
-  s.executables << 'app2container'
+  s.executables = ['building']
 end

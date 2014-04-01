@@ -1,15 +1,16 @@
-app2container
+building
 ==========
 Build a Docker container for any app using Heroku Buildpacks
 
 Install
 -------
 
-	$ sudo gem install app2container
-	$ app2container
-	Usage: app2container [options] CONTAINER_NAME [TAG]
-        --from FROM                  Change the default FROM (progrium/buildstep)
-    -f, --file DOCKERFILE            External Dockerfile to append to the app2container generated Dockerfile
+	$ sudo gem install building
+	$ building
+	Usage: building [options] CONTAINER_NAME [TAG]
+    -o, --output FIGCONF             Output a fig configuration file
+    -f, --from FROM                  Change the default FROM (progrium/buildstep)
+    -d, --dockerfile DOCKERFILE      External Dockerfile to append to the building generated Dockerfile
     -i, --include CMD                Extra commands during the image build
     -b, --buildpack URL              Add an external Buildpack URL
     -p, --p PORT                     Run the container after it is built on a certain port
@@ -20,26 +21,26 @@ Usage
 
 To convert any app into a Docker container using Heroku Buildpacks, just use this simple gem.
 
-	$ app2container myuser/container-name
+	$ building myuser/container-name
 	$ docker run -d -p 8080 -e "PORT=8080" myuser/container-name
 
 You can version your apps by adding a verison number.
 
-	$ app2container myuser/container-name 1.2
+	$ building myuser/container-name 1.2
 	$ docker run -d -p 8080 -e "PORT=8080" myuser/container-name:1.2
 
-Also, you can have app2container run the app for you automatically by adding a -p flag with a port number.
+Also, you can have building run the app for you automatically by adding a -p flag with a port number.
 
-	$ app2container -p 8080 myuser/container-name 1.2
+	$ building -p 8080 myuser/container-name 1.2
 
 Fig Integration
 ---------------
 
-If you never want to interact with the docker command line, app2container can pair up with fig with the -o flag.
+If you never want to interact with the docker command line, building can pair up with fig with the -o flag.
 	
 	$ brew install python # if you are on a Mac
 	$ sudo pip install -U fig
-	$ app2container -o fig.yml myuser/container-name
+	$ building -o fig.yml myuser/container-name
 	$ fig up -d
 	Creating myapp_web_1...
 	$ fig scale web=3
@@ -59,21 +60,21 @@ External Buildpacks
 
 To add an external buildpack, you can specify it with a -b flag. For example, here is how to get HHVM working in a Docker container:
 
-	$ app2container -b https://github.com/hhvm/heroku-buildpack-hhvm.git -f ctlc/buildstep:ubuntu12.04 wordpress
+	$ building -b https://github.com/hhvm/heroku-buildpack-hhvm.git -f ctlc/buildstep:ubuntu12.04 wordpress
 
-In this case, the standard hhvm buildpack is compiled against Ubuntu 12.04, whereas the default Linux distro in app2container is based on Ubuntu 12.10.
+In this case, the standard hhvm buildpack is compiled against Ubuntu 12.04, whereas the default Linux distro in building is based on Ubuntu 12.10.
 
 Adding Your Own Packages to the Standard Container
 --------------------------------------------------
 
 Sometimes you need a few more packages built-in to your container. Here is how to do that:
 
-	$ app2container -i "apt-get update && apt-get install -qy libapache2-mod-php5 php5-mysql php5-memcache php5-curl" wordpress
+	$ building -i "apt-get update && apt-get install -qy libapache2-mod-php5 php5-mysql php5-memcache php5-curl" wordpress
 
-Or you can save your modifications to a file for a cleaner app2container command.
+Or you can save your modifications to a file for a cleaner building command.
 
 	$ echo "apt-get update && apt-get install -qy libapache2-mod-php5 php5-mysql php5-memcache php5-curl" > Dockerfile.include
-	$ app2container -f Dockerfile.include wordpress
+	$ building -f Dockerfile.include wordpress
 
 
 Creating Your Own Base Containers

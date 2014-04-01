@@ -1,9 +1,9 @@
 require 'yaml'
 require 'fileutils'
 
-class App2Container
+class Building
   def self.convert(app_name, tag, options={})
-    App2Container.new(app_name, tag, options)
+    Building.new(app_name, tag, options)
   end
 
   def initialize(app_name, tag, options={})

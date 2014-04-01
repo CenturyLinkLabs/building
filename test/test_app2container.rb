@@ -1,9 +1,9 @@
 require 'test/unit'
-require 'app2container'
+require 'building'
 
-class App2ContainerTest < Test::Unit::TestCase
+class BuildingTest < Test::Unit::TestCase
   def setup(options={})
-    App2Container.convert(
+    Building.convert(
       "test-app",
       "latest",
       options
