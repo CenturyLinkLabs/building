@@ -74,7 +74,7 @@ Sometimes you need a few more packages built-in to your container. Here is how t
 Or you can save your modifications to a file for a cleaner building command.
 
 	$ echo "apt-get update && apt-get install -qy libapache2-mod-php5 php5-mysql php5-memcache php5-curl" > Dockerfile.include
-	$ building -f Dockerfile.include wordpress
+	$ building -d Dockerfile.include wordpress
 
 
 Creating Your Own Base Containers
