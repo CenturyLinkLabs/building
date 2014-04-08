@@ -30,7 +30,7 @@ To convert any app into a Docker container using Heroku Buildpacks, just use thi
 You can version your apps by adding a verison number.
 
 	$ building myuser/container-name 1.2
-	      create  Dockerfile
+	   identical  Dockerfile
 	    building  docker build -t myuser/container-name:1.2 .
             hint  To run your app, try:  docker run -d -p 8080 -e "PORT=8080" myuser/container-name:1.2
             hint  To re-build your app, try:  docker build -t myuser/container-name .
@@ -38,7 +38,7 @@ You can version your apps by adding a verison number.
 Also, you can have building run the app for you automatically by adding a -p flag with a port number.
 
 	$ building -p 8080 myuser/container-name 1.2
-	      create  Dockerfile
+	   identical  Dockerfile
 	    building  docker build -t myuser/container-name:1.2 .
 	     running  docker run -d -p 8080 -e "PORT=8080" myuser/container-name:1.2
 
