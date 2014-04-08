@@ -130,7 +130,11 @@ eof
   end
 
   def explain_container(port)
-    run = "docker run -d -p #{port} -e \"PORT=#{port}\" #{@app_name}:#{@tag}"
+    if @fig
+      run = "fig up -d"
+    else
+      run = "docker run -d -p #{port} -e \"PORT=#{port}\" #{@app_name}:#{@tag}"
+    end
     rebuild = "docker build -t #{@app_name} ."
 
     say "        <%= color('hint', [YELLOW, BOLD]) %>       To run your app, try:  <%= color('#{run}', [BOLD]) %>"
