@@ -1,6 +1,6 @@
 building
 ==========
-Build a Docker container for any app using Heroku Buildpacks
+A simple dev tool CLI for building Docker containers for any app using Heroku Buildpacks
 
 Install
 -------
