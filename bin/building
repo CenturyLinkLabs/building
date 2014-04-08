@@ -13,7 +13,7 @@ opt_parser = OptionParser.new do |opts|
     options[:fig] = fig
   end
 
-  opts.on("-f", "--from FROM", "Change the default FROM (progrium/buildstep)") do |from|
+  opts.on("-f", "--from FROM", "Change the Dockerfile's FROM (chose from: ctlc/buildstep:ubuntu13.10, ctlc/buildstep:ubuntu13.04, ctlc/buildstep:ubuntu12.10, ctlc/buildstep:ubuntu12.04)") do |from|
     options[:from] = from
   end
 

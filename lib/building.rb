@@ -39,7 +39,7 @@ class Building
     if @buildpack_url
       dockerfile << <<-eof
 RUN git clone --depth 1 #{@buildpack_url} /build/buildpacks/#{@buildpack_url.split("/").last.sub(".git","")}
-RUN echo #{@buildpack_url} >> /build/buildpacks.txt
+RUN echo #{@buildpack_url} | cat - /build/buildpacks.txt > /tmp/out && mv /tmp/out /build/buildpacks.txt
 eof
     end
 
