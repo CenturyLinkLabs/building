@@ -19,19 +19,50 @@ Install
 Usage
 -----
 
-To convert any app into a Docker container using Heroku Buildpacks, just use this simple gem.
+To convert any app into a Docker container using Heroku Buildpacks, just use this simple gem:
 
 	$ building myuser/container-name
-	$ docker run -d -p 8080 -e "PORT=8080" myuser/container-name
+	      create  Dockerfile
+	    building  docker build -t myuser/container-name:latest .
+	Uploading context 3.584 kB
+	Uploading context 
+	Step 0 : FROM ctlc/buildstep:ubuntu13.10
+	 ---> a5432f93c775
+	Step 1 : ADD . /app
+	 ---> e0471eaa9fdd
+	Step 2 : RUN /build/builder
+	 ---> Running in 91246a8fe85f
+	       PHP (classic) app detected
+	-----> Bundling NGINX 1.4.4
+	-----> Bundling PHP 5.5.10
+	-----> Bundling extensions
+	-----> Setting up default configuration
+	-----> Vendoring binaries into slug
+	-----> Discovering process types
+	       Default process types for PHP (classic) -> web
+	 ---> 57bb5e17260f
+	Step 3 : CMD /start web
+	 ---> Running in ba36c1c60c60
+	 ---> ecaa1f4c9182
+	Successfully built ecaa1f4c9182
+            hint  To run your app, try:  docker run -d -p 8080 -e "PORT=8080" myuser/container-name:latest
+            hint  To re-build your app, try:  docker build -t myuser/container-name .
 
 You can version your apps by adding a verison number.
 
 	$ building myuser/container-name 1.2
-	$ docker run -d -p 8080 -e "PORT=8080" myuser/container-name:1.2
+	      create  Dockerfile
+	    building  docker build -t myuser/container-name:1.2 .
+            hint  To run your app, try:  docker run -d -p 8080 -e "PORT=8080" myuser/container-name:1.2
+            hint  To re-build your app, try:  docker build -t myuser/container-name .
 
 Also, you can have building run the app for you automatically by adding a -p flag with a port number.
 
 	$ building -p 8080 myuser/container-name 1.2
+	      create  Dockerfile
+	    building  docker build -t myuser/container-name:1.2 .
+	     running  docker run -d -p 8080 -e "PORT=8080" myuser/container-name:1.2
+	21250ae37008211e71fd2923e78240c2da6e4d6a426d05b29dc1ba37f5c20a3c
 
 Fig Integration
 ---------------
