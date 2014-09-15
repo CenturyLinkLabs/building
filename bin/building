@@ -33,6 +33,10 @@ opt_parser = OptionParser.new do |opts|
     options[:port] = port
   end
 
+  opts.on("-s", "--start PROCESS", "Set the default Procfile process for the Dockerfile to put in the CMD") do |start_process|
+    options[:start_process] = start_process
+  end
+
   opts.on( '-h', '--help', 'Display this screen' ) do
     puts opts
     exit

@@ -11,6 +11,7 @@ class Building
   def initialize(app_name, tag, options={})
     @app_name = app_name
     @tag = tag || "latest"
+    @start_process = options[:start_process] || "web"
     @buildpack_url = options[:buildpack_url]
     @includes = options[:includes]
     @file = options[:file]
@@ -54,7 +55,7 @@ eof
     dockerfile << <<-eof
 ADD . /app
 RUN /build/builder
-CMD /start web
+CMD /start #{@start_process}
 eof
     
     skip = false
@@ -86,9 +87,9 @@ eof
 
   def build_fig
     figfile = <<-eof
-web:
+#{@start_process}:
   image: #{@app_name}:#{@tag}
-  command: /start web
+  command: /start #{@start_process}
   environment:
     PORT: #{@port || 8080}
   ports:
