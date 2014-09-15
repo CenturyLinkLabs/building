@@ -104,3 +104,14 @@ Other times, you will need a more customized OS tuned to your needs. For example
 
 	$ docker build -t ctlc/buildstep:ubuntu12.04 .
 	$ docker push ctlc/buildstep
+
+
+Using on a CI server
+--------------------
+
+Sometimes you may want to automate the creation of a container, but you get prompted to overwrite an existing Dockerfile.
+
+You can do so simply by using echo to provide the answer to the prompt:
+
+        $ echo y | docker build -t ctlc/buildstep:ubuntu12.04 .
+
