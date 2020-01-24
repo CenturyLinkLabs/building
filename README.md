@@ -1,3 +1,7 @@
+## NOTE
+
+This repo is no longer being maintained. Users are welcome to fork it, but we make no warranty of its functionality.
+
 building
 ==========
 A simple dev tool CLI for building Docker containers for any app using Heroku Buildpacks
