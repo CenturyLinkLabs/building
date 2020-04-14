@@ -31,7 +31,7 @@ To convert any app into a Docker container using Heroku Buildpacks, just use thi
             hint  To run your app, try:  docker run -d -p 8080 -e "PORT=8080" myuser/container-name:latest
             hint  To re-build your app, try:  docker build -t myuser/container-name .
 
-You can version your apps by adding a verison number.
+You can version your apps by adding a version number.
 
 	$ building myuser/container-name 1.2
 	   identical  Dockerfile
